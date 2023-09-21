@@ -9,7 +9,7 @@ on:
 jobs:
   ensure_nix:
     name: Ensure nix works
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     steps:
     - name: git checkout
       uses: actions/checkout@v3
@@ -26,7 +26,7 @@ jobs:
   build_and_test:
     name: Build and test app
     needs: ensure_nix
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     steps:
     - name: git checkout
       uses: actions/checkout@v3
