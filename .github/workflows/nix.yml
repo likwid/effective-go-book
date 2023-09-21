@@ -8,8 +8,8 @@ on:
 
 jobs:
   ensure_nix:
-    name: Check Nix
-    runs-on: self-hosted
+    name: Ensure nix works
+    runs-on: ubuntu
     steps:
     - name: git checkout
       uses: actions/checkout@v3
@@ -20,15 +20,13 @@ jobs:
       uses: DeterminateSystems/flake-checker-action@main
       with:
         fail-mode: true
-
     - name: Check go env
-      run: |
-        nix develop --command \
-          go env
+      run: nix develop --command go env
+
   build_and_test:
-    name: Build and test greetings app
+    name: Build and test app
     needs: ensure_nix
-    runs-on: self-hosted
+    runs-on: ubuntu
     steps:
     - name: git checkout
       uses: actions/checkout@v3
@@ -36,6 +34,4 @@ jobs:
       uses: DeterminateSystems/nix-installer-action@main
     - uses: DeterminateSystems/magic-nix-cache-action@main
     - name: Test App
-      run: |
-        nix develop --command \
-          go test -cover ./...
+      run: nix develop --command go test -cover ./...
