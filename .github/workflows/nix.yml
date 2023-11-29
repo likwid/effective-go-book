@@ -30,5 +30,8 @@ jobs:
     steps:
     - name: git checkout
       uses: actions/checkout@v3
+    - name: Install Nix
+      uses: DeterminateSystems/nix-installer-action@main
+    - uses: DeterminateSystems/magic-nix-cache-action@main
     - name: Test App
       run: nix develop --command go test -cover ./...
